@@ -4,20 +4,20 @@ Centralized repository for GitHub Agentic Workflows ([gh-aw](https://github.com/
 
 ## Motivation
 
-Many developers maintain multiple repositories across different languages like Rust, Go, or others. While each repository solves a different problem, their tooling and environment setup (such as Nix, CI workflows, linters, and Taskfile) often share common patterns.
+This is a very personal project. I maintain multiple repositories across different languages like Rust, Go, and others. While each repository solves a different problem, their tooling and environment setup (such as Nix, CI workflows, linters, and Taskfile) often share common patterns.
 
 Keeping these repositories up to date is hard:
 
-- **Template decay**: Updating a template repository does not help existing projects. You must still update each project by hand.
-- **Maintenance toil**: Manually copying files and updating configs takes time and causes mistakes. When this toil piles up, you lose the energy to build small, fun tools to help yourself.
-- **Scattered repositories**: Some tools require separate repositories by design. For example, [dprint](https://dprint.dev/) plugins must each be created and released in their own repository rather than a single monorepo. While their inner logic differs, their outer setup (CI, build, linting) is almost identical. As the number of plugins grows, syncing them by hand becomes painful.
+- **Template decay**: Updating my template repository does not help existing projects. I must still update each project by hand.
+- **Maintenance toil**: Manually copying files and updating configs takes time and causes mistakes. When this toil piles up, I lose the energy to build small, fun tools to make my life easier.
+- **Scattered repositories**: Some tools require separate repositories by design. For example, [dprint](https://dprint.dev/) plugins must each be created and released in their own repository rather than a single monorepo. While their inner logic differs, their outer setup (CI, build, linting) is almost identical. As I create more plugins, syncing them by hand becomes painful.
 
-This repository automates that upkeep. It acts as a single central hub that checks reference setups and sends pull requests to keep all target repositories fresh.
+This repository automates that upkeep. It acts as a single central hub that checks reference setups and sends pull requests to keep my target repositories fresh.
 
 ## Features
 
 - **Centralized**: No extra workflow files or settings are needed in target repositories.
-- **Multiple Repositories in One Workflow**: A single workflow can check and modernize several sibling repositories (e.g., all your dprint plugins) using `allowed-repos`.
+- **Multiple Repositories in One Workflow**: A single workflow can check and modernize several sibling repositories (e.g., all my dprint plugins) using `allowed-repos`.
 - **Token Efficient**:
   - Checks open pull requests to avoid opening duplicate PRs.
   - Pre-steps check recent commits before invoking the AI agent.
