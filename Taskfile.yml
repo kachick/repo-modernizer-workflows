@@ -4,14 +4,14 @@ version: '3'
 
 tasks:
   default:
-    deps:
+    cmds:
       - task: compile
       - task: lint
 
   compile:
     desc: Compile agentic workflows into GitHub Actions lock files
     cmds:
-      - gh-aw compile
+      - gh-aw compile --approve
 
   check:
     desc: Check and validate workflows without emitting lock files

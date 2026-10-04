@@ -9,3 +9,5 @@ rules:
     disable: true
   adhoc-packages:
     disable: true
+  template-injection:
+    disable: true

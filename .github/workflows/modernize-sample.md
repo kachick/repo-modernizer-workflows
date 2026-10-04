@@ -8,8 +8,32 @@ imports:
 engine:
   id: gemini
 model: gemini-2.5-pro
+runs-on: ubuntu-26.04
 permissions:
   contents: read
+steps:
+  - name: Check whether modernization is needed
+    id: check_upstream
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    run: |
+      # Check reference repository or conditions before doing heavy tool setup
+      # Set needed=true to proceed with Nix and home-manager installation
+      echo "needed=true" >> "$GITHUB_OUTPUT"
+
+pre-agent-steps:
+  - name: Setup Nix and Cachix
+    if: steps.check_upstream.outputs.needed == 'true'
+    uses: kachick/dotfiles/.github/actions/setup-nix@main
+    with:
+      cachix-auth-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+  - name: Setup home-manager tools
+    if: steps.check_upstream.outputs.needed == 'true'
+    run: |
+      mkdir -p ~/.local/state/nix/profiles
+      nix run 'github:kachick/dotfiles#home-manager' -- switch -b backup --flake 'github:kachick/dotfiles#github-actions@ubuntu-26.04'
+      echo "$HOME/.nix-profile/bin" >> "$GITHUB_PATH"
 safe-outputs:
   threat-detection: false
   github-app:
