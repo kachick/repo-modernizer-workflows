@@ -6,6 +6,7 @@ tasks:
   default:
     deps:
       - task: compile
+      - task: lint
 
   compile:
     desc: Compile agentic workflows into GitHub Actions lock files
@@ -16,3 +17,16 @@ tasks:
     desc: Check and validate workflows without emitting lock files
     cmds:
       - gh-aw compile --strict --no-emit
+
+  fmt:
+    desc: Format files
+    cmds:
+      - dprint fmt
+
+  lint:
+    desc: Lint files
+    cmds:
+      - dprint check
+      - typos . .github
+      - zizmor .
+      - task: check

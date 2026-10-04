@@ -5,3 +5,7 @@ rules:
         kachick/*: any
         actions/*: any
         crate-ci/*: any
+  self-repository:
+    disable: true
+  adhoc-packages:
+    disable: true

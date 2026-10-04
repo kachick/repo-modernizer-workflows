@@ -7,7 +7,7 @@ imports:
   - shared/modernize-rules.md
 engine:
   id: gemini
-  model: gemini-2.5-pro
+model: gemini-2.5-pro
 permissions:
   contents: read
 safe-outputs:
