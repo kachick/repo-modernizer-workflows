@@ -11,6 +11,7 @@ When reconciling and modernizing target repository files against reference repos
 - Focus on configuration files, CI workflows, build scripts, linters, formatters, and repository infrastructure.
 - Accompany manifest changes with corresponding lockfile updates when necessary (e.g. updating `Cargo.lock` alongside `Cargo.toml`, or `flake.lock` alongside `flake.nix`).
 - **Do not modify application business logic or domain code.**
+- **Do not modify auto-merge, release, or deployment workflows.**
 - Only adopt improvements that make sense for the target repository's stack. Do not blindly copy incompatible settings.
 
 ### 3. Verify and Keep Changes Minimal

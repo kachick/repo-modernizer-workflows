@@ -12,7 +12,14 @@ permissions:
   contents: read
 safe-outputs:
   threat-detection: false
+  github-app:
+    app-id: ${{ vars.APP_ID || secrets.APP_ID }}
+    private-key: ${{ secrets.APP_PRIVATE_KEY }}
   create-pull-request:
+    allow-workflows: true
+    excluded-files:
+      - "**/*merge*.y?ml"
+      - "**/*merge*.yaml"
     allowed-repos:
       - "kachick/dprint-plugin-kdl"
       - "kachick/dprint-plugin-sh"

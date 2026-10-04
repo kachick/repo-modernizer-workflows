@@ -36,18 +36,58 @@ This repository automates that upkeep. It acts as a single central hub that chec
 
 ## Setup & Required Secrets
 
-Configure these secrets in this repository (`Settings` -> `Secrets and variables` -> `Actions`):
+Configure these secrets and variables in this repository (`Settings` -> `Secrets and variables` -> `Actions`):
 
-| Secret / Variable | Description |
-|---|---|
-| `GEMINI_API_KEY` | API key for Google Gemini engine |
-| `GH_AW_SAFE_OUTPUTS_TOKEN` / App Secrets | GitHub App Private Key or PAT with `contents: write` and `pull-requests: write` for target repositories |
+| Secret / Variable | Type | Description |
+|---|---|---|
+| `GEMINI_API_KEY` | Secret | API key for Google Gemini engine |
+| `APP_ID` | Secret or Variable | GitHub App ID / Client ID with `contents: write`, `pull-requests: write`, and `workflows: write` |
+| `APP_PRIVATE_KEY` | Secret | GitHub App Private Key |
+
+## Custom Instructions & Skills
+
+### Project Instructions (`AGENTS.md`)
+
+Place an `AGENTS.md` file in the root of this repository. The `gh-aw` Gemini engine automatically loads `AGENTS.md` as ambient project instructions for all agent runs. No special workflow configuration is needed.
+
+### Using Skills
+
+You can attach skills to workflows using the `skills:` frontmatter field:
+
+```yaml
+skills:
+  # Local skill within this repository
+  - .github/skills/my-nix-skill
+
+  # Skill from another repository (pinned to a 40-character commit SHA)
+  # For private repositories, pass a GitHub App or token with read permissions
+  - skill: kachick/my-skills/repo-gardening@801dca688564c529fa84f247f64472520d9ebe28
+    github-token: ${{ secrets.GH_TOKEN }}
+```
+
+## Workflow Updates & Auto-Merge Safety
+
+To let the agent modernize `.github/workflows/` files (like CI and linters), set `allow-workflows: true`.
+
+To prevent the agent from tampering with auto-merge or release automation, use `excluded-files` with glob patterns:
+
+```yaml
+safe-outputs:
+  create-pull-request:
+    allow-workflows: true
+    excluded-files:
+      # Strictly exclude any workflow files matching merge patterns
+      - "**/*merge*.y?ml"
+      - "**/*merge*.yaml"
+```
+
+Matching files are stripped at git patch creation time. The agent cannot modify them.
 
 ## How to Add or Customize Workflows
 
 1. Create or edit a markdown file in `.github/workflows/modernize-<category>.md`.
 2. Import shared rules via `imports: [shared/modernize-rules.md]`.
-3. List your target repositories under `safe-outputs.create-pull-request.allowed-repos` (or set `target-repo` for a single repository).
+3. List target repositories under `safe-outputs.create-pull-request.allowed-repos`.
 4. Run `task compile` to generate the corresponding `.lock.yml`.
 
 ## Commands
