@@ -38,11 +38,11 @@ This repository automates that upkeep. It acts as a single central hub that chec
 
 Configure these secrets and variables in this repository (`Settings` -> `Secrets and variables` -> `Actions`):
 
-| Secret / Variable | Type | Description |
-|---|---|---|
-| `GEMINI_API_KEY` | Secret | API key for Google Gemini engine |
-| `APP_ID` | Secret or Variable | GitHub App ID / Client ID with `contents: write`, `pull-requests: write`, and `workflows: write` |
-| `APP_PRIVATE_KEY` | Secret | GitHub App Private Key |
+| Secret / Variable | Type               | Description                                                                                      |
+| ----------------- | ------------------ | ------------------------------------------------------------------------------------------------ |
+| `GEMINI_API_KEY`  | Secret             | API key for Google Gemini engine                                                                 |
+| `APP_ID`          | Secret or Variable | GitHub App ID / Client ID with `contents: write`, `pull-requests: write`, and `workflows: write` |
+| `APP_PRIVATE_KEY` | Secret             | GitHub App Private Key                                                                           |
 
 ## Custom Instructions & Skills
 
@@ -77,8 +77,8 @@ safe-outputs:
     allow-workflows: true
     excluded-files:
       # Strictly exclude any workflow files matching merge patterns
-      - "**/*merge*.y?ml"
-      - "**/*merge*.yaml"
+      - '**/*merge*.y?ml'
+      - '**/*merge*.yaml'
 ```
 
 Matching files are stripped at git patch creation time. The agent cannot modify them.
