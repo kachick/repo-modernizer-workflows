@@ -21,14 +21,6 @@ safe-outputs:
     title-prefix: "[repo-modernizer] "
     branch-prefix: "modernize/"
     draft: false
-    allowed-files:
-      - ".github/**"
-      - "*.yml"
-      - "*.yaml"
-      - "*.toml"
-      - "*.json*"
-      - "Taskfile*"
-      - "flake.*"
 ---
 
 ## Mission

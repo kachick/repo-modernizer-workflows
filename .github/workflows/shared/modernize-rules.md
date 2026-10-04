@@ -8,7 +8,8 @@ When reconciling and modernizing target repository files against reference repos
 - **Never propose changes that were previously rejected or abandoned.** Respect past maintainer decisions.
 
 ### 2. Focus on Environment, CI, and Tooling
-- Limit updates to configuration files, CI workflows, build scripts, linters, formatters, and repository infrastructure.
+- Focus on configuration files, CI workflows, build scripts, linters, formatters, and repository infrastructure.
+- Accompany manifest changes with corresponding lockfile updates when necessary (e.g. updating `Cargo.lock` alongside `Cargo.toml`, or `flake.lock` alongside `flake.nix`).
 - **Do not modify application business logic or domain code.**
 - Only adopt improvements that make sense for the target repository's stack. Do not blindly copy incompatible settings.
 
