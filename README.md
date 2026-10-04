@@ -2,17 +2,26 @@
 
 Centralized repository for GitHub Agentic Workflows ([gh-aw](https://github.com/github/gh-aw)) that modernize and reconcile repository configurations.
 
-## Overview
+## Motivation
 
-This repository runs daily workflows using Google Gemini to keep target repositories up to date with reference patterns (such as CI workflows, linters, and tool configurations).
+Many developers maintain multiple repositories across different languages like Rust, Go, or others. While each repository solves a different problem, their tooling and environment setup (such as Nix, CI workflows, linters, and Taskfile) often share common patterns.
 
-Key features:
+Keeping these repositories up to date is hard:
+
+- **Template decay**: Updating a template repository does not help existing projects. You must still update each project by hand.
+- **Maintenance toil**: Manually copying files and updating configs takes time and causes mistakes. When this toil piles up, you lose the energy to build small, fun tools to help yourself.
+- **Scattered repositories**: Some tools require separate repositories by design. For example, [dprint](https://dprint.dev/) plugins must each be created and released in their own repository rather than a single monorepo. While their inner logic differs, their outer setup (CI, build, linting) is almost identical. As the number of plugins grows, syncing them by hand becomes painful.
+
+This repository automates that upkeep. It acts as a single central hub that checks reference setups and sends pull requests to keep all target repositories fresh.
+
+## Features
 
 - **Centralized**: No extra workflow files or settings are needed in target repositories.
+- **Multiple Repositories in One Workflow**: A single workflow can check and modernize several sibling repositories (e.g., all your dprint plugins) using `allowed-repos`.
 - **Token Efficient**:
-  - `skip-if-match` skips agent execution when a pull request is already open.
-  - Deterministic pre-steps check recent commits via GitHub API before starting the AI agent.
-- **Feedback-Aware (Zero-Memory)**: Learns from closed pull requests in target repositories to avoid proposing previously rejected changes.
+  - Checks open pull requests to avoid opening duplicate PRs.
+  - Pre-steps check recent commits before invoking the AI agent.
+- **Feedback-Aware (Zero-Memory)**: Reads past closed pull requests in the target repository to avoid proposing changes that were previously rejected or abandoned.
 - **Cross-Repository Pull Requests**: Emits pull requests to target repositories through GitHub App permissions and safe outputs.
 
 ## Directory Structure
@@ -34,19 +43,19 @@ Configure these secrets in this repository (`Settings` -> `Secrets and variables
 | `GEMINI_API_KEY` | API key for Google Gemini engine |
 | `GH_AW_SAFE_OUTPUTS_TOKEN` / App Secrets | GitHub App Private Key or PAT with `contents: write` and `pull-requests: write` for target repositories |
 
-## How to Add a New Workflow
+## How to Add or Customize Workflows
 
-1. Create a new markdown file in `.github/workflows/modernize-<repo-name>.md`.
-2. Import the shared rules via `imports: [shared/modernize-rules.md]`.
-3. Set your target repository in `safe-outputs.create-pull-request.target-repo` and `skip-if-match`.
-4. Run `task compile` (or `gh-aw compile`) to generate the corresponding `.lock.yml`.
+1. Create or edit a markdown file in `.github/workflows/modernize-<category>.md`.
+2. Import shared rules via `imports: [shared/modernize-rules.md]`.
+3. List your target repositories under `safe-outputs.create-pull-request.allowed-repos` (or set `target-repo` for a single repository).
+4. Run `task compile` to generate the corresponding `.lock.yml`.
 
 ## Commands
 
 ```bash
 # Compile markdown workflows into GitHub Actions lock files
-make compile  # or: gh-aw compile
+task compile
 
 # Check workflow definitions without generating lock files
-make check    # or: gh-aw compile --strict --no-emit
+task check
 ```
