@@ -1,5 +1,5 @@
 ---
-name: modernize-sample
+name: modernize-dprint-plugins
 on:
   schedule: daily
   workflow_dispatch:
