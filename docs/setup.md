@@ -19,30 +19,36 @@ Configure these secrets and variables in GitHub (`Settings` -> `Secrets and vari
    - `Contents`: Read and write
    - `Pull requests`: Read and write
    - `Workflows`: Read and write
-2. Install the GitHub App on your target repositories (or choose "All repositories" under your account).
+2. Install the GitHub App on your target repositories and configuration repositories (e.g. `llm-config` with read access).
    - Target repositories do not need secrets, variables, or workflow files. Everything runs centrally from this repository.
-   - For least privilege, workflows scope minted App tokens to target repositories using `safe-outputs.github-app.repositories`.
+   - For least privilege, workflows scope minted App tokens to target repositories using `safe-outputs.github-app.repositories` and checkout `github-app.repositories`.
 3. Configure `REPO_MODERNIZER_APP_ID` (Variable) and `REPO_MODERNIZER_APP_PRIVATE_KEY` (Secret) in this repository.
 
 ## Custom Instructions & Skills
 
-### Project Instructions (`AGENTS.md`)
+### Remote Instructions & Skills (`llm-config`)
 
-Place an `AGENTS.md` file in the root of this repository. The `gh-aw` Gemini engine loads `AGENTS.md` as ambient project instructions for all agent runs.
-
-### Using Skills
-
-You can attach skills to workflows using the `skills:` frontmatter field:
+Workflows load ambient agent instructions (`AGENTS.md`) and custom skills from the private configuration repository `kachick/llm-config` on branch `main`:
 
 ```yaml
-skills:
-  # Local skill within this repository
-  - .github/skills/my-nix-skill
-
-  # Skill from another repository (pinned to a commit SHA)
-  - skill: kachick/my-skills/repo-gardening@801dca688564c529fa84f247f64472520d9ebe28
-    github-token: ${{ secrets.GH_TOKEN }}
+checkout:
+  - path: .
+  - repository: kachick/llm-config
+    path: .llm-config
+    ref: main
+    sparse-checkout: |
+      home/dot_gemini/AGENTS.md
+      home/dot_gemini/config/skills
+    github-app:
+      app-id: ${{ vars.REPO_MODERNIZER_APP_ID }}
+      private-key: ${{ secrets.REPO_MODERNIZER_APP_PRIVATE_KEY }}
+      repositories:
+        - llm-config
 ```
+
+In `pre-agent-steps`, the files are copied into `.gemini/skills`, `.agents/skills`, and `~/.gemini/` before the AI agent runs.
+
+Make sure the GitHub App is installed on `kachick/llm-config` with `Contents: Read` access.
 
 ## Workflow Updates & Auto-Merge Safety
 

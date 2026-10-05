@@ -11,6 +11,19 @@ model: gemini-3.8-flash
 runs-on: ubuntu-26.04
 permissions:
   contents: read
+checkout:
+  - path: .
+  - repository: kachick/llm-config
+    path: .llm-config
+    ref: main
+    sparse-checkout: |
+      home/dot_gemini/AGENTS.md
+      home/dot_gemini/config/skills
+    github-app:
+      app-id: ${{ vars.REPO_MODERNIZER_APP_ID }}
+      private-key: ${{ secrets.REPO_MODERNIZER_APP_PRIVATE_KEY }}
+      repositories:
+        - llm-config
 steps:
   - name: Check whether modernization is needed
     id: check_upstream
@@ -34,6 +47,16 @@ pre-agent-steps:
       mkdir -p ~/.local/state/nix/profiles
       nix run 'github:kachick/dotfiles#home-manager' -- switch -b backup --flake 'github:kachick/dotfiles#github-actions@ubuntu-26.04'
       echo "$HOME/.nix-profile/bin" >> "$GITHUB_PATH"
+
+  - name: Install AGENTS.md and skills from llm-config
+    if: steps.check_upstream.outputs.needed == 'true'
+    run: |
+      mkdir -p .gemini/skills .agents/skills ~/.gemini/config/skills
+      cp .llm-config/home/dot_gemini/AGENTS.md ./AGENTS.md
+      cp .llm-config/home/dot_gemini/AGENTS.md ~/.gemini/AGENTS.md
+      cp -r .llm-config/home/dot_gemini/config/skills/* .gemini/skills/
+      cp -r .llm-config/home/dot_gemini/config/skills/* .agents/skills/
+      cp -r .llm-config/home/dot_gemini/config/skills/* ~/.gemini/config/skills/
 safe-outputs:
   threat-detection: false
   github-app:
