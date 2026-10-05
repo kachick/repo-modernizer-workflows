@@ -25,7 +25,7 @@ checkout:
     ref: main
     sparse-checkout: |
       home/dot_gemini/AGENTS.md
-      home/dot_gemini/config/skills/git-workflow
+      home/dot_gemini/config/skills/git-workflow/**
     github-app:
       app-id: ${{ vars.REPO_MODERNIZER_APP_ID }}
       private-key: ${{ secrets.REPO_MODERNIZER_APP_PRIVATE_KEY }}
@@ -77,6 +77,12 @@ steps:
       fi
 
 pre-agent-steps:
+  - name: Configure git defaults for agent commits
+    run: |
+      git config --global user.name "Kenichi Kamiya"
+      git config --global user.email "kachick1@gmail.com"
+      git config --global diff.external ""
+
   - name: Setup Nix and Cachix
     uses: kachick/dotfiles/.github/actions/setup-nix@main
     with:

@@ -38,7 +38,7 @@ checkout:
     ref: main
     sparse-checkout: |
       home/dot_gemini/AGENTS.md
-      home/dot_gemini/config/skills/git-workflow
+      home/dot_gemini/config/skills/git-workflow/**
     github-app:
       app-id: ${{ vars.REPO_MODERNIZER_APP_ID }}
       private-key: ${{ secrets.REPO_MODERNIZER_APP_PRIVATE_KEY }}
