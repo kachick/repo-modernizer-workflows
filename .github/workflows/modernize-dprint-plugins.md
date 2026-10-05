@@ -9,8 +9,6 @@ engine:
   id: gemini
 model: gemini-3.8-flash
 runs-on: ubuntu-26.04
-features:
-  action-tag: '924af5fdc64061cfbf66fb584c8b07e2ac230c60' # v0.89.21
 permissions:
   contents: read
 checkout:
