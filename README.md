@@ -24,6 +24,17 @@ This repository automates that upkeep. It acts as a single central hub that chec
 - **Feedback-Aware (Zero-Memory)**: Reads past closed pull requests in the target repository to avoid proposing changes that were previously rejected or abandoned.
 - **Cross-Repository Pull Requests**: Emits pull requests to target repositories through GitHub App permissions and safe outputs.
 
+## Reference Repositories
+
+The workflows compare target repositories against these reference repositories based on their roles:
+
+| Repository                                                                            | Role                    | Purpose & Handling                                                                                                            |
+| ------------------------------------------------------------------------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| [`kachick/anylang-template`](https://github.com/kachick/anylang-template)             | General baseline        | Baseline template for standard project configurations. Changes are backported here from active projects over time.            |
+| [`kachick/dotfiles`](https://github.com/kachick/dotfiles)                             | Toolchain & environment | Personal environment setup. Continuously updated with the latest tool versions, Nix flakes, and runner tags (`ubuntu-26.04`). |
+| [`kachick/selfup`](https://github.com/kachick/selfup)                                 | Go + Nix reference      | Reference base for Go and Nix toolchain setups.                                                                               |
+| [`kachick/dprint-plugin-typstyle`](https://github.com/kachick/dprint-plugin-typstyle) | dprint plugin template  | Reference base for `dprint-plugin-*` repositories. Shared plugin improvements aggregate here over time.                       |
+
 ## Directory Structure
 
 ```text

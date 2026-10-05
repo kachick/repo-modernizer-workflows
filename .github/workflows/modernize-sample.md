@@ -64,14 +64,19 @@ Reconcile and modernize the target repositories by comparing their setups with t
 - `kachick/dprint-plugin-sh`
 - `kachick/dprint-plugin-nix`
 
-Reference repository: `kachick/dprint-plugins` (or template repository)
+## Reference Repositories
+
+- **Primary reference**: `kachick/dprint-plugin-typstyle` (the template and aggregation base for dprint plugins)
+- **General baseline**: `kachick/anylang-template` (general project setup and configurations)
+- **Toolchain reference**: `kachick/dotfiles` (latest tool versions, Nix flakes, and runner tags)
 
 ## Instructions
 
 For each target repository listed above:
 
 1. Inspect its configuration, CI workflows, and tool setups (such as Nix, Taskfile, and GitHub Actions).
-2. Check open pull requests: if a pull request matching `[repo-modernizer] ` is already open, skip proposing new changes for that repository to prevent duplicates.
-3. Check past closed pull requests: inspect PRs matching `[repo-modernizer] ` to avoid repeating previously closed or rejected changes.
-4. If there are valuable updates from the reference repository, create a pull request targeting that repository (specify the `repo` field in `create_pull_request`).
-5. If no updates are necessary for a repository, skip it.
+2. Compare them against the reference repositories according to their roles (see shared rules).
+3. Check open pull requests: if a pull request matching `[repo-modernizer] ` is already open, skip proposing new changes for that repository to prevent duplicates.
+4. Check past closed pull requests: inspect PRs matching `[repo-modernizer] ` to avoid repeating previously closed or rejected changes.
+5. If there are valuable updates from the reference repositories, create a pull request targeting that repository (specify the `repo` field in `create_pull_request`).
+6. If no updates are necessary for a repository, skip it.
