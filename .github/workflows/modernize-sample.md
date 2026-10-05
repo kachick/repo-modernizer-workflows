@@ -7,7 +7,7 @@ imports:
   - shared/modernize-rules.md
 engine:
   id: gemini
-model: gemini-2.5-pro
+model: gemini-3.8-flash
 runs-on: ubuntu-26.04
 permissions:
   contents: read
