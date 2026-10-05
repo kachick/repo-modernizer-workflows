@@ -2,10 +2,10 @@
 
 When reconciling and modernizing target repository files against reference repositories, follow these rules:
 
-### 1. Check Past Closed Pull Requests (Learn from Feedback)
+### 1. Check Open and Closed Pull Requests (Prevent Duplicates & Learn from Feedback)
 
-- Search closed pull requests created by this workflow in the target repository (matching the `[repo-modernizer]` title prefix).
-- Inspect whether any PRs were closed without merging (e.g., closed with reason `not_planned`, or with rejecting maintainer comments).
+- **Open PRs**: If a pull request created by this workflow (matching the `[repo-modernizer]` title prefix) is already open in the target repository, skip creating new pull requests for that repository to prevent duplicates.
+- **Closed PRs**: Search closed pull requests matching `[repo-modernizer]`. Inspect whether any PRs were closed without merging (e.g., closed with reason `not_planned`, or with rejecting maintainer comments).
 - **Never propose changes that were previously rejected or abandoned.** Respect past maintainer decisions.
 
 ### 2. Focus on Environment, CI, and Tooling

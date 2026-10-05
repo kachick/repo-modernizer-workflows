@@ -72,11 +72,7 @@ Reconcile and modernize the target repositories by comparing their setups with t
 
 ## Instructions
 
-For each target repository listed above:
+For each target repository:
 
 1. Inspect its configuration, CI workflows, and tool setups (such as Nix, Taskfile, and GitHub Actions).
-2. Compare them against the reference repositories according to their roles (see shared rules).
-3. Check open pull requests: if a pull request matching `[repo-modernizer] ` is already open, skip proposing new changes for that repository to prevent duplicates.
-4. Check past closed pull requests: inspect PRs matching `[repo-modernizer] ` to avoid repeating previously closed or rejected changes.
-5. If there are valuable updates from the reference repositories, create a pull request targeting that repository (specify the `repo` field in `create_pull_request`).
-6. If no updates are necessary for a repository, skip it.
+2. Reconcile with the reference repositories following the modernization guidelines in shared rules.
