@@ -38,7 +38,7 @@ checkout:
     ref: main
     sparse-checkout: |
       home/dot_gemini/AGENTS.md
-      home/dot_gemini/config/skills
+      home/dot_gemini/config/skills/git-workflow
     github-app:
       app-id: ${{ vars.REPO_MODERNIZER_APP_ID }}
       private-key: ${{ secrets.REPO_MODERNIZER_APP_PRIVATE_KEY }}
@@ -46,7 +46,7 @@ checkout:
         - llm-config
 ```
 
-In `pre-agent-steps`, the files are copied into `.gemini/skills`, `.agents/skills`, and `~/.gemini/` before the AI agent runs.
+In `pre-agent-steps`, the files are copied into `.gemini/skills/git-workflow`, `.agents/skills/git-workflow`, and `~/.gemini/config/skills/git-workflow` before the AI agent runs.
 
 Make sure the GitHub App is installed on `kachick/llm-config` with `Contents: Read` access.
 
