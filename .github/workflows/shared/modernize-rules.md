@@ -2,13 +2,25 @@
 
 When reconciling and modernizing target repository files against reference repositories, follow these rules:
 
-### 1. Check Open and Closed Pull Requests (Prevent Duplicates & Learn from Feedback)
+### 1. Split Pull Requests by Category (Work Unit)
 
-- **Open PRs**: If a pull request created by this workflow (matching the `[repo-modernizer]` title prefix) is already open in the target repository, skip creating new pull requests for that repository to prevent duplicates.
-- **Closed PRs**: Search closed pull requests matching `[repo-modernizer]`. Inspect whether any PRs were closed without merging (e.g., closed with reason `not_planned`, or with rejecting maintainer comments).
-- **Never propose changes that were previously rejected or abandoned.** Respect past maintainer decisions.
+- Do not combine all updates into one large pull request.
+- Create separate pull requests for each category or unit of work. Common categories include:
+  - `nix`: Flake inputs, `flake.lock`, Nix toolchain, and Nix GitHub Actions.
+  - `ci`: GitHub Actions runner versions (e.g. `ubuntu-26.04`), workflow steps, and test pipelines.
+  - `lint`: Formatter and linter configurations (e.g. `Taskfile.yml`, `dprint`, `typos`).
+- Keep diffs focused, small, and easy to review.
+- Give each pull request a distinct branch name matching its category, such as `modernize/nix` or `modernize/ci`.
+- If two updates modify the exact same file or depend on each other, keep them in the same pull request or wait for the first pull request to merge before opening the next.
 
-### 2. Focus on Environment, CI, and Tooling
+### 2. Category-Scoped Pull Request Checks (Prevent Duplicates & Learn from Feedback)
+
+- Format pull request titles with category tags: `[repo-modernizer] [<category>] <short description>` (for example, `[repo-modernizer] [nix] Update flake inputs`).
+- **Open PRs**: Search open pull requests for the matching category tag (for example, `[repo-modernizer] [nix]`). If an open pull request already exists for that category, skip creating a new pull request for that category. Do not skip other unrelated categories.
+- **Closed PRs**: Search closed pull requests for the matching category tag. Check whether maintainers closed any pull requests without merging (such as `not_planned` or with comments declining the change).
+- **Never re-propose changes that maintainers previously rejected in that category.** Rejection in one category does not block other categories.
+
+### 3. Focus on Environment, CI, and Tooling
 
 - Focus on configuration files, CI workflows, build scripts, linters, formatters, and repository infrastructure.
 - Accompany manifest changes with corresponding lockfile updates when necessary (e.g. updating `Cargo.lock` alongside `Cargo.toml`, or `flake.lock` alongside `flake.nix`).
@@ -16,13 +28,12 @@ When reconciling and modernizing target repository files against reference repos
 - **Do not modify auto-merge, release, or deployment workflows.**
 - Only adopt improvements that make sense for the target repository's stack. Do not blindly copy incompatible settings.
 
-### 3. Verify and Keep Changes Minimal
+### 4. Verify and Keep Changes Minimal
 
 - If there are no meaningful or necessary updates from the reference repository, do not create a pull request (emit `noop`).
-- Keep diffs small, focused, and easy to review.
 - Clearly describe the purpose of each change in the pull request body, including links to the reference commit or repository.
 
-### 4. Reference Repositories and Their Roles
+### 5. Reference Repositories and Their Roles
 
 When inspecting reference repositories, treat each one according to its purpose:
 

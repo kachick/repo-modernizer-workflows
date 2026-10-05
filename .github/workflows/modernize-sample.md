@@ -47,7 +47,7 @@ safe-outputs:
       - 'kachick/dprint-plugin-kdl'
       - 'kachick/dprint-plugin-sh'
       - 'kachick/dprint-plugin-nix'
-    max: 3
+    max: 10
     title-prefix: '[repo-modernizer] '
     branch-prefix: 'modernize/'
     draft: false
