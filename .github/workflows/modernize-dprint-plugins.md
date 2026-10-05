@@ -11,6 +11,10 @@ model: gemini-3.8-flash
 runs-on: ubuntu-26.04
 permissions:
   contents: read
+network:
+  allowed:
+    - defaults
+    - play.googleapis.com
 checkout:
   - path: .
   - repository: kachick/llm-config
