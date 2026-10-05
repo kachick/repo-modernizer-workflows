@@ -36,12 +36,24 @@ When reconciling and modernizing target repository files against reference repos
 - **Do not modify auto-merge, release, or deployment workflows.**
 - Only adopt improvements that make sense for the target repository's stack. Do not blindly copy incompatible settings.
 
-### 4. Verify and Keep Changes Minimal
+### 4. Commit Messages and Reference Permalinks
+
+In each commit made for a pull request, explain the change and record its origin:
+
+- Include reference URLs under a `References:` section in the commit message:
+  - **Specific commit**: When the change comes from a specific commit in a reference repository, include the commit permalink:
+    `https://github.com/<owner>/<repo>/commit/<commit-sha>`
+  - **Tree revision**: When it is difficult to isolate a single commit (such as adopting setup files from a reference repository), include the tree permalink of the revision at the time of reference:
+    `https://github.com/<owner>/<repo>/tree/<commit-sha>`
+  - **No bare hash values**: Never write bare commit hashes. Always use full GitHub permalinks so maintainers can click and trace the history easily.
+- Also include these reference permalinks in the pull request description.
+
+### 5. Verify and Keep Changes Minimal
 
 - If there are no meaningful or necessary updates from the reference repository, do not create a pull request (emit `noop`).
-- Clearly describe the purpose of each change in the pull request body, including links to the reference commit or repository.
+- Keep diffs small, focused, and easy to review.
 
-### 5. Reference Repositories and Their Roles
+### 6. Reference Repositories and Their Roles
 
 When inspecting reference repositories, treat each one according to its purpose:
 
