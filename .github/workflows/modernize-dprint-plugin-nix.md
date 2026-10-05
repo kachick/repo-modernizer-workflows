@@ -17,7 +17,6 @@ permissions:
 network:
   allowed:
     - defaults
-    - play.googleapis.com
 checkout:
   - path: .
   - repository: kachick/llm-config
@@ -103,7 +102,7 @@ pre-agent-steps:
       cp -r .llm-config/home/dot_gemini/config/skills/git-workflow/* .agents/skills/git-workflow/
       cp -r .llm-config/home/dot_gemini/config/skills/git-workflow/* ~/.gemini/config/skills/git-workflow/
 
-  - name: Configure Gemini CLI for proxy auth
+  - name: Configure Gemini CLI for proxy auth and disable telemetry
     run: |
       mkdir -p ~/.gemini .gemini
       cat <<'EOF' > .gemini/settings.json
@@ -112,6 +111,12 @@ pre-agent-steps:
           "auth": {
             "useExternal": true
           }
+        },
+        "privacy": {
+          "usageStatisticsEnabled": false
+        },
+        "telemetry": {
+          "enabled": false
         }
       }
       EOF

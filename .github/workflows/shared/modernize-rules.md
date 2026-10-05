@@ -35,6 +35,9 @@ When reconciling and modernizing target repository files against reference repos
 - **Do not modify application business logic or domain code.**
 - **Do not modify auto-merge, release, or deployment workflows.**
 - Only adopt improvements that make sense for the target repository's stack. Do not blindly copy incompatible settings.
+- **Do not add the repository's own product to its own configs or workflows**:
+  - Never introduce self-referential setups, such as adding the repository's own plugin into `dprint.json` or calling the repository's own action in its CI workflows.
+  - Using a repository's own product to build or test itself (dogfooding) is complex and often causes circular dependencies. Such integration is outside the scope of repository modernizer.
 
 ### 4. Commit Messages and Reference Permalinks
 
