@@ -37,8 +37,8 @@ pre-agent-steps:
 safe-outputs:
   threat-detection: false
   github-app:
-    app-id: ${{ vars.APP_ID || secrets.APP_ID }}
-    private-key: ${{ secrets.APP_PRIVATE_KEY }}
+    app-id: ${{ vars.REPO_MODERNIZER_APP_ID }}
+    private-key: ${{ secrets.REPO_MODERNIZER_APP_PRIVATE_KEY }}
   create-pull-request:
     allow-workflows: true
     excluded-files:

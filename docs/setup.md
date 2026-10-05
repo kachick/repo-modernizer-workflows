@@ -6,12 +6,12 @@ This document explains how to set up, configure, and extend agentic workflows in
 
 Configure these secrets and variables in GitHub (`Settings` -> `Secrets and variables` -> `Actions`):
 
-| Secret / Variable   | Type               | Description                                                                           |
-| ------------------- | ------------------ | ------------------------------------------------------------------------------------- |
-| `GEMINI_API_KEY`    | Secret             | API key for the Google Gemini engine.                                                 |
-| `APP_ID`            | Secret or Variable | GitHub App ID with `contents: write`, `pull-requests: write`, and `workflows: write`. |
-| `APP_PRIVATE_KEY`   | Secret             | GitHub App Private Key.                                                               |
-| `CACHIX_AUTH_TOKEN` | Secret             | Cachix authentication token for the `kachick-dotfiles` binary cache.                  |
+| Secret / Variable                 | Type     | Description                                                                           |
+| --------------------------------- | -------- | ------------------------------------------------------------------------------------- |
+| `GEMINI_API_KEY`                  | Secret   | API key for the Google Gemini engine.                                                 |
+| `REPO_MODERNIZER_APP_ID`          | Variable | GitHub App ID with `contents: write`, `pull-requests: write`, and `workflows: write`. |
+| `REPO_MODERNIZER_APP_PRIVATE_KEY` | Secret   | GitHub App Private Key.                                                               |
+| `CACHIX_AUTH_TOKEN`               | Secret   | Cachix authentication token for the `kachick-dotfiles` binary cache.                  |
 
 ## Custom Instructions & Skills
 
