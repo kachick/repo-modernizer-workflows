@@ -44,3 +44,8 @@ When inspecting reference repositories, treat each one according to its purpose:
   - The reference template specifically for `dprint-plugin-*` repositories.
   - Other dprint plugins aggregate their shared setups here over time.
   - Use this as the primary reference when modernizing any dprint plugin.
+
+- **`kachick/wait-other-jobs`**:
+  - A GitHub Action written in TypeScript.
+  - While it is a GitHub Action rather than typical frontend or backend code, TypeScript-specific tooling and setup patterns are usually kept here.
+  - Use this as the reference base for TypeScript configurations.
