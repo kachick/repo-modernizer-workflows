@@ -1,0 +1,9 @@
+{
+  "entries": {
+    "kachick/dotfiles/.github/actions/setup-nix@main": {
+      "repo": "kachick/dotfiles/.github/actions/setup-nix",
+      "version": "main",
+      "sha": "e914b0ab56aa12b13dc82262decf92f409b8c4c5"
+    }
+  }
+}
