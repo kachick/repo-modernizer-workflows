@@ -6,7 +6,7 @@ When reconciling and modernizing target repository files against reference repos
 
 - Do not combine all updates into one large pull request.
 - Create separate pull requests for each category or unit of work. Common categories include:
-  - `nix`: Flake inputs, `flake.lock`, Nix toolchain, and Nix GitHub Actions.
+  - `nix`: Flake structure, devShell tools, formatters, and Nix GitHub Actions (do not perform routine `flake.lock` updates).
   - `ci`: GitHub Actions runner versions (e.g. `ubuntu-26.04`), workflow steps, and test pipelines.
   - `lint`: Formatter and linter configurations (e.g. `Taskfile.yml`, `dprint`, `typos`).
 - Keep diffs focused, small, and easy to review.
@@ -23,7 +23,9 @@ When reconciling and modernizing target repository files against reference repos
 ### 3. Focus on Environment, CI, and Tooling
 
 - Focus on configuration files, CI workflows, build scripts, linters, formatters, and repository infrastructure.
-- Accompany manifest changes with corresponding lockfile updates when necessary (e.g. updating `Cargo.lock` alongside `Cargo.toml`, or `flake.lock` alongside `flake.nix`).
+- **Do not update `flake.lock`**: Routine `flake.lock` updates are handled automatically by scheduled workflows in each repository, and tool versions are managed by `selfup`. Never open a pull request just to update `flake.lock` or bump tool versions.
+- **Scope of Nix Modernization**: Focus on architectural changes in `flake.nix` (for example, changing the flake formatter from `nixfmt-tree` to `dprint-plugin-nix`), devShell configurations, and Nix GitHub Actions workflows.
+- Accompany manifest changes with corresponding lockfile updates when necessary (e.g. updating `Cargo.lock` alongside `Cargo.toml`).
 - **Do not modify application business logic or domain code.**
 - **Do not modify auto-merge, release, or deployment workflows.**
 - Only adopt improvements that make sense for the target repository's stack. Do not blindly copy incompatible settings.

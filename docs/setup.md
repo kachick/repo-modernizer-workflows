@@ -44,6 +44,7 @@ safe-outputs:
   create-pull-request:
     allow-workflows: true
     excluded-files:
+      - 'flake.lock'
       - '*merge*.y*ml'
 ```
 
