@@ -16,7 +16,8 @@ This repository automates that upkeep. It acts as a single central hub that chec
 
 ## Features
 
-- **Centralized**: No extra workflow files or settings are needed in target repositories.
+- **Centralized**: No workflow files, secrets, or variables are needed in target repositories. Only the GitHub App needs to be installed on target repositories (or account-wide).
+- **Least-Privilege App Tokens**: GitHub App tokens are scoped strictly to the target repositories specified in each workflow.
 - **Multiple Repositories in One Workflow**: A single workflow can check and modernize several sibling repositories (e.g., all my dprint plugins) using `allowed-repos`.
 - **Token Efficient**:
   - Checks open pull requests to avoid opening duplicate PRs.

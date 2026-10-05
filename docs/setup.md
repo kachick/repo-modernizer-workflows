@@ -13,6 +13,17 @@ Configure these secrets and variables in GitHub (`Settings` -> `Secrets and vari
 | `REPO_MODERNIZER_APP_PRIVATE_KEY` | Secret   | GitHub App Private Key.                                                               |
 | `CACHIX_AUTH_TOKEN`               | Secret   | Cachix authentication token for the `kachick-dotfiles` binary cache.                  |
 
+## GitHub App Setup & Permissions
+
+1. Create a dedicated GitHub App (e.g. `repo-modernizer`) with these repository permissions:
+   - `Contents`: Read and write
+   - `Pull requests`: Read and write
+   - `Workflows`: Read and write
+2. Install the GitHub App on your target repositories (or choose "All repositories" under your account).
+   - Target repositories do not need secrets, variables, or workflow files. Everything runs centrally from this repository.
+   - For least privilege, workflows scope minted App tokens to target repositories using `safe-outputs.github-app.repositories`.
+3. Configure `REPO_MODERNIZER_APP_ID` (Variable) and `REPO_MODERNIZER_APP_PRIVATE_KEY` (Secret) in this repository.
+
 ## Custom Instructions & Skills
 
 ### Project Instructions (`AGENTS.md`)
@@ -54,5 +65,5 @@ Matching files are stripped before creating a pull request. The agent cannot mod
 
 1. Create or edit a markdown file in `.github/workflows/modernize-<category>.md`.
 2. Import shared rules via `imports: [shared/modernize-rules.md]`. See [`.github/workflows/shared/modernize-rules.md`](../.github/workflows/shared/modernize-rules.md) for reference repository roles and update guidelines.
-3. List target repositories under `safe-outputs.create-pull-request.allowed-repos`.
+3. List target repositories under `safe-outputs.create-pull-request.allowed-repos` and `safe-outputs.github-app.repositories`.
 4. Run `task compile` to generate the corresponding `.lock.yml`.
