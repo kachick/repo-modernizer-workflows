@@ -84,6 +84,9 @@ pre-agent-steps:
       cp .gemini/settings.json ~/.gemini/settings.json
 safe-outputs:
   threat-detection: false
+  report-incomplete: false
+  report-failure-as-issue: false
+  report-failed-jobs: false
   github-app:
     app-id: ${{ vars.REPO_MODERNIZER_APP_ID }}
     private-key: ${{ secrets.REPO_MODERNIZER_APP_PRIVATE_KEY }}
@@ -94,6 +97,7 @@ safe-outputs:
       - dprint-plugin-nix
   create-pull-request:
     allow-workflows: true
+    fallback-as-issue: false
     github-token-for-extra-empty-commit: 'app'
     excluded-files:
       - 'flake.lock'
