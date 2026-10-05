@@ -42,8 +42,7 @@ safe-outputs:
   create-pull-request:
     allow-workflows: true
     excluded-files:
-      - '**/*merge*.y?ml'
-      - '**/*merge*.yaml'
+      - '*merge*.y*ml'
     allowed-repos:
       - 'kachick/dprint-plugin-kdl'
       - 'kachick/dprint-plugin-sh'

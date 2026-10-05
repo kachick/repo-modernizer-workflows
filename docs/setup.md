@@ -44,8 +44,7 @@ safe-outputs:
   create-pull-request:
     allow-workflows: true
     excluded-files:
-      - '**/*merge*.y?ml'
-      - '**/*merge*.yaml'
+      - '*merge*.y*ml'
 ```
 
 Matching files are stripped before creating a pull request. The agent cannot modify them.
