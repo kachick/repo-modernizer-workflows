@@ -77,10 +77,10 @@ steps:
       fi
 
 pre-agent-steps:
-  - name: Configure git defaults for agent commits
+  - name: Configure git bot identity for agent commits
     run: |
-      git config --global user.name "Kenichi Kamiya"
-      git config --global user.email "kachick1@gmail.com"
+      git config --global user.name "repo-modernizer[bot]"
+      git config --global user.email "337949002+repo-modernizer[bot]@users.noreply.github.com"
       git config --global diff.external ""
 
   - name: Setup Nix and Cachix
