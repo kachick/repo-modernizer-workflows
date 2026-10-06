@@ -170,9 +170,11 @@ Before doing any repository scans or diffs:
      `noop: "No new upstream commits in reference repository since last run."`
    - Finish immediately. Do NOT run any file diffs or inspect directories.
 3. **If changes are listed**:
-   - Look only at the files listed under `Modified files in upstream` (e.g. `.github/workflows/`, Nix files, or tool configs).
-   - Only compare those specific files against `repos/dprint-plugin-nix/`.
-   - Do NOT run full recursive diffs across unaffected parts of the repository.
+   - Check `=== Upstream commits ===` first to find what changed (such as tool upgrades, CI workflows, or Nix setups).
+   - Read upstream commit messages (such as `git show <commit>`) to understand why and how they changed.
+   - Focus on one theme at a time (e.g. `ci`, `nix`, or `lint`). Only inspect and edit files needed for that theme.
+   - Do NOT compare every listed file one by one across both repositories. That wastes context and time.
+   - In `repos/dprint-plugin-nix/`, you can inspect and edit any files needed to keep the build and tests passing (such as `Cargo.toml` or Nix files), even if they are not in the upstream diff.
 
 ## Instructions
 
