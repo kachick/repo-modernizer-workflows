@@ -22,9 +22,6 @@ checkout:
   - repository: kachick/llm-config
     path: .llm-config
     ref: main
-    sparse-checkout: |
-      home/dot_gemini/AGENTS.md
-      home/dot_gemini/config/skills/git-workflow/**
     github-app:
       app-id: ${{ vars.REPO_MODERNIZER_APP_ID }}
       private-key: ${{ secrets.REPO_MODERNIZER_APP_PRIVATE_KEY }}
@@ -101,6 +98,7 @@ pre-agent-steps:
       cp -r .llm-config/home/dot_gemini/config/skills/git-workflow/* .gemini/skills/git-workflow/
       cp -r .llm-config/home/dot_gemini/config/skills/git-workflow/* .agents/skills/git-workflow/
       cp -r .llm-config/home/dot_gemini/config/skills/git-workflow/* ~/.gemini/config/skills/git-workflow/
+      rm -rf .llm-config
 
   - name: Configure Gemini CLI for proxy auth and disable telemetry
     run: |
