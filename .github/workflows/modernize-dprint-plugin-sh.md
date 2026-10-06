@@ -1,7 +1,6 @@
 ---
 name: modernize-dprint-plugin-sh
 on:
-  schedule: daily
   workflow_dispatch:
 imports:
   - shared/modernize-rules.md
