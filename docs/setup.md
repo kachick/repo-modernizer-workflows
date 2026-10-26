@@ -11,7 +11,7 @@ Configure these secrets and variables in GitHub (`Settings` -> `Secrets and vari
 | `GEMINI_API_KEY`                  | Secret   | API key for the Google Gemini engine.                                                 |
 | `REPO_MODERNIZER_APP_ID`          | Variable | GitHub App ID with `contents: write`, `pull-requests: write`, and `workflows: write`. |
 | `REPO_MODERNIZER_APP_PRIVATE_KEY` | Secret   | GitHub App Private Key.                                                               |
-| `CACHIX_AUTH_TOKEN`               | Secret   | Cachix authentication token for the `kachick-dotfiles` binary cache.                  |
+| `CACHIX_AUTH_TOKEN`               | Secret   | Authentication token for the `https://cache.kachick.dev` binary cache.                |
 
 ## GitHub App Setup & Permissions
 
